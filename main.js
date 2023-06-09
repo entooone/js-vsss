@@ -258,6 +258,8 @@ class App {
     }
 
     setImage(image) {
+        this.clear();
+
         document.getElementById('originalImageBox').appendChild(image);
 
         const sleep = waitTime => new Promise(resolve => setTimeout(resolve, waitTime));
@@ -288,7 +290,6 @@ class App {
     handleImage = (e) => {
         const reader = new FileReader();
         reader.onload = (event) => {
-            this.clear();
             this.originalImage.onload = () => this.setImage(this.originalImage);
             this.originalImage.src = event.target.result;
         }
@@ -296,13 +297,10 @@ class App {
     }
 
     handleImageSelector = (e) => {
+        this.originalImage.onload = () => this.setImage(this.originalImage);
         if (e.target.value === "Lenna") {
-            this.clear();
-            this.originalImage.onload = () => this.setImage(this.originalImage);
             this.originalImage.src = "images/Lenna.jpg";
         } else if (e.target.value === "qrcode") {
-            this.clear();
-            this.originalImage.onload = () => this.setImage(this.originalImage);
             this.originalImage.src = "images/qrcode.png";
         }
     }
