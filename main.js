@@ -250,6 +250,17 @@ class App {
                 img.y += dy;
                 img.lastX = mouseX;
                 img.lastY = mouseY;
+
+                // 近くの画像にスナップさせる
+                for (let img2 of this.images) {
+                    if (img2 == img) continue;
+                    if (Math.abs(img.x - img2.x) < 5) {
+                        img.x = img2.x;
+                    }
+                    if (Math.abs(img.y - img2.y) < 5) {
+                        img.y = img2.y;
+                    }
+                }
             }
         }
 
