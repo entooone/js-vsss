@@ -153,7 +153,6 @@ function shareImage(srcImage) {
     const sharedImageData1 = ctx.createImageData(w, h);
     const sharedImageData2 = ctx.createImageData(w, h);
 
-    console.log("sw=", sw, "w=", w, "h=", h, "srcImageData.data.length=", srcImageData.data.length, "sharedImageData1.data.length=", sharedImageData1.data.length, "sharedImageData2.data.length=", sharedImageData2.data.length)
     for (let i = 0; i < srcImageData.data.length; i += 4) {
 
         const ystride = Math.trunc(i / (sw * 4)) * (w * 4);
