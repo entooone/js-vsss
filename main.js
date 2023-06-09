@@ -201,10 +201,15 @@ class App {
         this.images = [];
         this.originalImage = new Image();
 
-        this.canvas.addEventListener('pointerdown', this.handleMouseDown, false);
-        this.canvas.addEventListener('pointerup', this.handleMouseUp, false);
-        this.canvas.addEventListener('pointermove', this.handleMouseMove, false);
-        this.canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+        this.canvas.addEventListener('mousedown', this.handleMouseDown, false);
+        this.canvas.addEventListener('mouseup', this.handleMouseUp, false);
+        this.canvas.addEventListener('mousemove', this.handleMouseMove, false);
+        this.canvas.addEventListener('touchstart', this.handleMouseDown, false);
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            this.handleMouseMove(e);
+        }, false);
+        this.canvas.addEventListener('touchend', this.handleMouseUp, false);
     }
 
     draw = () => {
