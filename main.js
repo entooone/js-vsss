@@ -206,7 +206,7 @@ class App {
         this.canvas.addEventListener('mousemove', this.handleMouseMove, false);
         this.canvas.addEventListener('touchstart', this.handleMouseDown, false);
         this.canvas.addEventListener('touchmove', (e) => {
-            // e.preventDefault();
+            e.preventDefault();
             this.handleMouseMove(e);
         }, false);
         this.canvas.addEventListener('touchend', this.handleMouseUp, false);
