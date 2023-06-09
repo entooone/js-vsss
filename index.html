@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1pt solid black;
+        }
+    </style>
+    <script defer src="main.js"></script>
+</head>
+
+<body>
+    <h1>Visual Secret Sharing Scheme</h1>
+    <div>
+        <canvas id="canvas" width="800" height="800"></canvas>
+    </div>
+    <div>
+        <select id="imageSelector">
+            <option hidden>選択してください</option>
+            <option value="Lenna">Lenna</option>
+        </select>
+
+        <input type="file" id="imageLoader" name="imageLoader" />
+
+        <div>
+            <p>元画像</p>
+            <div id="originalImageBox"></div>
+        </div>
+
+        <div>
+            <p>二値化画像</p>
+            <div id="binaryImageBox"></div>
+        </div>
+
+        <div>
+            <p>シェア画像</p>
+            <div id="sharedImageBox"></div>
+        </div>
+    </div>
+</body>
+
+</html>
