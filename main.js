@@ -206,7 +206,7 @@ class App {
         this.canvas.addEventListener('mousemove', this.handleMouseMove, false);
         this.canvas.addEventListener('touchstart', this.handleMouseDown, false);
         this.canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
+            // e.preventDefault();
             this.handleMouseMove(e);
         }, false);
         this.canvas.addEventListener('touchend', this.handleMouseUp, false);
@@ -227,8 +227,13 @@ class App {
     }
 
     handleMouseDown = (e) => {
-        const mouseX = e.clientX - this.canvas.offsetLeft;
-        const mouseY = e.clientY - this.canvas.offsetTop;
+        if (e.type == 'touchstart') {
+            var mouseX = e.touches[0].clientX - this.canvas.offsetLeft;
+            var mouseY = e.touches[0].clientY - this.canvas.offsetTop;
+        } else {
+            var mouseX = e.clientX - this.canvas.offsetLeft;
+            var mouseY = e.clientY - this.canvas.offsetTop;
+        }
 
         for (let img of this.images.slice().reverse()) {
             if (img.in(mouseX, mouseY)) {
@@ -245,8 +250,13 @@ class App {
     }
 
     handleMouseMove = (e) => {
-        const mouseX = e.clientX - this.canvas.offsetLeft;
-        const mouseY = e.clientY - this.canvas.offsetTop;
+        if (e.type == 'touchmove') {
+            var mouseX = e.touches[0].clientX - this.canvas.offsetLeft;
+            var mouseY = e.touches[0].clientY - this.canvas.offsetTop;
+        } else {
+            var mouseX = e.clientX - this.canvas.offsetLeft;
+            var mouseY = e.clientY - this.canvas.offsetTop;
+        }
 
         for (let img of this.images) {
             if (img.dragging) {
