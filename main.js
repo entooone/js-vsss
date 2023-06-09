@@ -203,10 +203,8 @@ class App {
 
         this.canvas.addEventListener('pointerdown', this.handleMouseDown, false);
         this.canvas.addEventListener('pointerup', this.handleMouseUp, false);
-        this.canvas.addEventListener('pointermove', (e) => {
-            e.preventDefault();
-            this.handleMouseMove(e);
-        }, false);
+        this.canvas.addEventListener('pointermove', this.handleMouseMove, false);
+        this.canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
     }
 
     draw = () => {
