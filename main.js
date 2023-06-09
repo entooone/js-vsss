@@ -267,6 +267,9 @@ class App {
         sleep(500).then(() => {
             const img = image2ImageData(image, image.width, image.height);
 
+            this.canvas.width = img.width * 3;
+            this.canvas.height = img.height * 3;
+
             sleep(500).then(() => {
                 const binaryImage = new MyImage(
                     imageData2Image(toBinaryImage(img, 128)), 0, 0);
