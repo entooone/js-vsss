@@ -23,12 +23,19 @@
         <canvas id="canvas" width="800" height="800"></canvas>
     </div>
     <div>
-        <select id="imageSelector">
-            <option hidden>選択してください</option>
-            <option value="Lenna">Lenna</option>
-        </select>
+        <div>
+            <p>サンプル画像</p>
+            <select id="imageSelector">
+                <option hidden>選択してください</option>
+                <option value="qrcode">QR コード</option>
+                <option value="Lenna">Lenna</option>
+            </select>
+        </div>
 
-        <input type="file" id="imageLoader" name="imageLoader" />
+        <div>
+            <p>画像ファイル</p>
+            <input type="file" id="imageLoader" name="imageLoader" />
+        </div>
 
         <div>
             <p>元画像</p>

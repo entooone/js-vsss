@@ -201,9 +201,6 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         this.images = [];
         this.originalImage = new Image();
-        this.originalImageBox = document.getElementById('originalImageBox');
-        this.binaryImageBox = document.getElementById('binaryImageBox');
-        this.sharedImageBox = document.getElementById('sharedImageBox');
 
         this.canvas.addEventListener('pointerdown', this.handleMouseDown, false);
         this.canvas.addEventListener('pointerup', this.handleMouseUp, false);
@@ -213,6 +210,15 @@ class App {
     draw = () => {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.images.forEach(img => img.draw(this.ctx));
+    }
+
+    clear = () => {
+        this.originalImage = new Image();
+        this.images = [];
+        document.getElementById('originalImageBox').innerHTML = '';
+        document.getElementById('binaryImageBox').innerHTML = '';
+        document.getElementById('sharedImageBox').innerHTML = '';
+        this.draw();
     }
 
     handleMouseDown = (e) => {
@@ -282,6 +288,7 @@ class App {
     handleImage = (e) => {
         const reader = new FileReader();
         reader.onload = (event) => {
+            this.clear();
             this.originalImage.onload = () => this.setImage(this.originalImage);
             this.originalImage.src = event.target.result;
         }
@@ -290,8 +297,13 @@ class App {
 
     handleImageSelector = (e) => {
         if (e.target.value === "Lenna") {
+            this.clear();
             this.originalImage.onload = () => this.setImage(this.originalImage);
             this.originalImage.src = "images/Lenna.jpg";
+        } else if (e.target.value === "qrcode") {
+            this.clear();
+            this.originalImage.onload = () => this.setImage(this.originalImage);
+            this.originalImage.src = "images/qrcode.png";
         }
     }
 }
