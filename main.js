@@ -49,6 +49,10 @@ function imageData2Image(imageData) {
  * @returns {ImageData}
  */
 function shrinkImage(imageData, maxWidth, maxHeight) {
+    if (imageData.width <= maxWidth && imageData.height <= maxHeight) {
+        return imageData;
+    }
+
     const srcCanvas = document.createElement('canvas');
     const srcCtx = srcCanvas.getContext('2d');
     srcCanvas.width = imageData.width;
