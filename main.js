@@ -1,5 +1,7 @@
 "use strict";
 
+const SNAP_DISTANCE = 3;
+
 function randInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -270,10 +272,10 @@ class App {
                 // 近くの画像にスナップさせる
                 for (let img2 of this.images) {
                     if (img2 == img) continue;
-                    if (Math.abs(img.x - img2.x) < 5) {
+                    if (Math.abs(img.x - img2.x) < SNAP_DISTANCE) {
                         img.x = img2.x;
                     }
-                    if (Math.abs(img.y - img2.y) < 5) {
+                    if (Math.abs(img.y - img2.y) < SNAP_DISTANCE) {
                         img.y = img2.y;
                     }
                 }
