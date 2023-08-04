@@ -1,6 +1,7 @@
 "use strict";
 
 const SNAP_DISTANCE = 3;
+const BINARY_THRESHOLD = 128;
 
 function randInt(max) {
     return Math.floor(Math.random() * max);
@@ -36,6 +37,36 @@ function imageData2Image(imageData) {
     const image = new Image();
     image.src = canvas.toDataURL();
     return image;
+}
+
+/**
+ * shrinkImage は imageData の width と height が maxWidth と maxHeight 以下になるように 2 のべき乗に縮小します。
+ * @param {ImageData} imageData
+ * @param {number} maxWidth
+ * @param {number} maxHeight
+ * @returns {ImageData}
+ */
+function shrinkImage(imageData, maxWidth, maxHeight) {
+    const srcCanvas = document.createElement('canvas');
+    const srcCtx = srcCanvas.getContext('2d');
+    srcCanvas.width = imageData.width;
+    srcCanvas.height = imageData.height;
+    srcCtx.putImageData(imageData, 0, 0);
+
+    const w = imageData.width;
+    const h = imageData.height;
+    const exp = Math.max(1, Math.ceil(Math.log2(Math.max(w / maxWidth, h / maxHeight))));
+    const scale = Math.pow(2, exp);
+    const sw = Math.floor(w / scale);
+    const sh = Math.floor(h / scale);
+
+    const dstCanvas = document.createElement('canvas');
+    const dstCtx = dstCanvas.getContext('2d');
+    dstCanvas.width = sw;
+    dstCanvas.height = sh;
+    dstCtx.drawImage(srcCanvas, 0, 0, sw, sh);
+
+    return dstCtx.getImageData(0, 0, sw, sh);
 }
 
 function toBinaryImage(imageData, threshold) {
@@ -288,21 +319,25 @@ class App {
     setImage(image) {
         this.clear();
 
-        document.getElementById('originalImageBox').appendChild(image);
 
         const sleep = waitTime => new Promise(resolve => setTimeout(resolve, waitTime));
 
         sleep(500).then(() => {
-            const img = image2ImageData(image, image.width, image.height);
-
-            this.canvas.width = img.width * 3;
-            this.canvas.height = img.height * 3;
+            let img = image2ImageData(image, image.width, image.height);
 
             sleep(500).then(() => {
+                img = shrinkImage(img, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+                const shrinkedImage = new MyImage(
+                    imageData2Image(img), 0, 0);
+                document.getElementById('originalImageBox').appendChild(shrinkedImage.image);
+
+                img = toBinaryImage(img, BINARY_THRESHOLD);
                 const binaryImage = new MyImage(
-                    imageData2Image(toBinaryImage(img, 128)), 0, 0);
+                    imageData2Image(img), 0, 0);
                 document.getElementById('binaryImageBox').appendChild(binaryImage.image);
 
+                this.canvas.width = img.width * 3;
+                this.canvas.height = img.height * 3;
 
                 sleep(500).then(() => {
 
