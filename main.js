@@ -1,6 +1,8 @@
 "use strict";
 
 const SNAP_DISTANCE = 3;
+const MAX_IMAGE_WIDTH = 300;
+const MAX_IMAGE_HEIGHT = 300;
 const BINARY_THRESHOLD = 128;
 
 function randInt(max) {
